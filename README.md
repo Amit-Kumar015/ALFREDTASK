@@ -135,16 +135,6 @@ const fetchFlashcards = async () => {
 };
 ```
 
----
-
-## **🎯 Future Improvements**
-🔹 Add **AI-powered spaced repetition** for better learning.  
-🔹 Implement **export/import flashcards**.  
-🔹 Add **progress tracking & statistics** for users.  
-🔹 Enable **collaborative study groups**.  
-
----
-
 ## **📜 License**
 This project is **open-source** and available for contributions! 🚀
 
