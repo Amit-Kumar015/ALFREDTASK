@@ -12,7 +12,11 @@ const DisplayCard = () => {
   useEffect( () => {
     const fetchFlashcards = async () => {
       try {
-        const response = await axios.get("http://localhost:8000/api/flashcards");
+        const token = localStorage.getItem("token");
+        
+        const response = await axios.get("http://localhost:8000/api/flashcards", {
+          headers: { Authorization: `Bearer ${token}` }, // Include token in request
+        });
   
         const now = new Date();
         const filteredCards = response.data.data.filter((card) => {

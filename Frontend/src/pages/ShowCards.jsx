@@ -8,8 +8,12 @@ function ShowCards() {
 
   // Fetch all cards from the database
   useEffect(() => {
+    const token = localStorage.getItem("token"); // Get JWT from localStorage
+
     axios
-      .get("http://localhost:8000/api/flashcards")
+      .get("http://localhost:8000/api/flashcards", {
+        headers: { Authorization: `Bearer ${token}` }, // Include token in request
+      })
       .then((response) => setCards(response.data.data))
       .catch((error) => console.error("Error fetching cards:", error));
   }, []);
@@ -38,7 +42,7 @@ function ShowCards() {
       ) : (
         <div className="grid grid-cols-3 gap-6">
           {cards.map((card) => (
-            <div key={card._id} className="relative bg-white p-6 rounded-lg shadow-gray-600 shadow-lg min-h-50">
+            <div key={card._id} className="relative bg-white px-6 pt-6 pb-3 rounded-lg shadow-gray-600 shadow-lg min-h-50 min-w-40">
               {/* Level Badge */}
               <span className="absolute top-2 right-2 bg-green-500 text-white text-xs font-bold px-3 py-1 rounded-full">
                 Level {card.level}
@@ -47,7 +51,7 @@ function ShowCards() {
               <h3 className="text-xl text-black font-semibold my-3">{card.question}</h3>
               <p className="text-gray-900 my-2 mb-3 text-lg">Answer: {card.answer}</p>
 
-              <div className="flex justify-between">
+              <div className="flex justify-between gap-10">
                 <button
                   onClick={() => handleUpdate(card._id)}
                   className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded"
