@@ -1,4 +1,4 @@
-import { isValidObjectId } from "mongoose";
+import mongoose, { isValidObjectId } from "mongoose";
 import { Card } from "../models/Card.model.js";
 
 const createCard = async (req, res) => {
@@ -10,6 +10,12 @@ const createCard = async (req, res) => {
                 .status(404)
                 .json({ error: "provide both question and answer" })
         }
+
+        if (!req.user || !req.user._id) {
+            return res.status(401).json({ error: "Unauthorized - User ID missing" });
+        }
+
+        console.log("User ID:", req.user._id); 
 
         const card = await Card.create({
             question,

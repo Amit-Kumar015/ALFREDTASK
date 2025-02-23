@@ -9,8 +9,12 @@ function LevelCard() {
 
   // Fetch all cards matching the level from the database
   useEffect(() => {
+    const token = localStorage.getItem("token"); // Get JWT from localStorage
+
     axios
-      .get("http://localhost:8000/api/flashcards")
+      .get("http://localhost:8000/api/flashcards", {
+        headers: { Authorization: `Bearer ${token}` }, // Include token in request
+      })
       .then((response) => {        
         const filteredCards = response.data.data.filter((card) => card.level == level);
         setCards(filteredCards);

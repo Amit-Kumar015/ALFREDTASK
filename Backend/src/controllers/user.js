@@ -20,7 +20,7 @@ const signup = async (req, res) => {
 
         // Generate JWT Token
         const token = jwt.sign(
-            { userId: newUser._id },
+            { userId: newUser._id.toString() },
             process.env.ACCESS_TOKEN_SECRET,
             { expiresIn: process.env.ACCESS_TOKEN_EXPIRY }
         );
@@ -58,7 +58,7 @@ const login = async (req, res) => {
 
         // Generate JWT
         const token = jwt.sign(
-            { userId: user._id },
+            { userId: user._id.toString() },
             process.env.ACCESS_TOKEN_SECRET,
             { expiresIn: process.env.ACCESS_TOKEN_EXPIRY }
         );

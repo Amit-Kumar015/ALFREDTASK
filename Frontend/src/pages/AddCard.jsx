@@ -13,10 +13,13 @@ function AddCard() {
         setMessage("");
 
         try {
-            const response = await axios.post("http://localhost:8000/api/flashcards", {
-                question,
-                answer,
-            });
+            const token = localStorage.getItem("token"); // Get JWT from localStorage
+
+            const response = await axios.post(
+                "http://localhost:8000/api/flashcards",
+                { question, answer },
+                { headers: { Authorization: `Bearer ${token}` } } // Include token in headers
+            );
 
             if (response.status === 200) {
                 setMessage("Card added successfully!");

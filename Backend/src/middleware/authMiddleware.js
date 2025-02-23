@@ -2,11 +2,21 @@ import jwt from "jsonwebtoken";
 
 const verifyJWT = (req, res, next) => {
   try {
-    const token = req.header("Authorization");
-    if (!token) return res.status(401).json({ error: "Unauthorized" });
+    const authHeader = req.header("Authorization");
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+      return res.status(401).json({ error: "Unauthorized - No Token Provided" });
+    }
+
+    const token = authHeader.replace("Bearer ", ""); // Extract token
 
     const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
-    req.user = decoded; // Attach user to request
+    console.log("Decoded Token:", decoded); // Debugging: Check token content
+
+    if (!decoded.userId) {
+      return res.status(401).json({ error: "Unauthorized - User ID missing in token" });
+    }
+    
+    req.user = { _id: decoded.userId }; // Attach user to request
     next();
   } catch (error) {
     return res
