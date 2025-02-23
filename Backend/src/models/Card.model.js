@@ -22,22 +22,24 @@ const cardSchema = new Schema({
         type: Date,
         default: Date.now
     },
-    // user: {
-    //     type: Schema.Types.ObjectId,
-    //     ref: "User"
-    // }
+    user: {
+        type: Schema.Types.ObjectId,
+        ref: "User"
+    }
 }, {
     timestamps: true
 })
 
-cardSchema.methods.updateReviewDate = async function () {
-    const intervals = [1, 2, 5, 7, 10] //days
+const intervals = [1, 2, 5, 7, 10]; // Days interval for Leitner system
 
-    const boxIndex = Math.max(0, Math.min(this.level-1, intervals.length-1))
-
-    this.nextReviewDate = new Date()
-    this.nextReviewDate.setDate(this.nextReviewDate.getDate() + intervals[boxIndex])
-}
+cardSchema.pre("save", function (next) {
+    if (this.isModified("level")) {
+        const intervalIndex = Math.min(this.level - 1, intervals.length - 1);
+        this.nextReviewDate = new Date();
+        this.nextReviewDate.setDate(this.nextReviewDate.getDate() + intervals[intervalIndex]);
+    }
+    next();
+});
 
 cardSchema.plugin(mongooseAggregatePaginate)
 

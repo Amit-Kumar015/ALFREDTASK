@@ -1,11 +1,17 @@
 import {Router} from "express"
-import { createCard, deleteCard, getCards, updateCard } from "../controllers/flashcard.js"
+import { createCard,
+        deleteCard,
+        getCards,
+        updateCard,
+} from "../controllers/flashcard.js"
+import { verifyJWT } from "../middleware/authMiddleware.js"
 
 const router = Router()
+// router.use(verifyJWT)
 
 router.route("/flashcards")
-        .post(createCard)
-        .get(getCards)
+        .post(verifyJWT, createCard)
+        .get(verifyJWT, getCards)
 
 router.route("/flashcards/:id")
         .put(updateCard)
