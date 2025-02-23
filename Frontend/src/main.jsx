@@ -31,7 +31,3 @@ createRoot(document.getElementById('root')).render(
     <RouterProvider router={router}/>
   </StrictMode>,
 )
-
-
-// jwt auth (optional)
-// deploy (optional)

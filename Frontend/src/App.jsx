@@ -4,8 +4,6 @@ import Sidebar from "./components/Sidebar";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
-import DisplayCard from "./components/DisplayCard";
-import DarkModeToggle from "./components/DarkModeToggle";
 
 function App() {
   const navigate = useNavigate()

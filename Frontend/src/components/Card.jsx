@@ -81,7 +81,7 @@ const CardComponent = ({ card, onNext }) => {
       {/* Answer Correct/Incorrect */}
       {isCorrect !== null && (
         <p className={`mt-4 text-lg font-semibold ${isCorrect ? "text-green-600" : "text-red-600"}`}>
-          {isCorrect ? "Correct! 🎉 Level Up!" : "Wrong! ❌ Level Down!"}
+          {isCorrect ? "Correct! Level Up!" : "Wrong! Level Down!"}
         </p>
       )}
     </div>

@@ -10,7 +10,6 @@ const verifyJWT = (req, res, next) => {
     const token = authHeader.replace("Bearer ", ""); // Extract token
 
     const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
-    console.log("Decoded Token:", decoded); // Debugging: Check token content
 
     if (!decoded.userId) {
       return res.status(401).json({ error: "Unauthorized - User ID missing in token" });
